@@ -1,0 +1,76 @@
+body {
+    background-color: black;
+    color: white;
+  }
+  
+  .globalTimer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-style: solid;
+  }
+  
+  .timerContainer {
+    display: flex;
+    flex-direction: grid;
+    border-style: solid;
+    border-color: red;
+  }
+  
+  .webTitle {
+    border-style: solid;
+  }
+  
+  .bossTimer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    margin-top: 25px;
+    margin-left: 25px;
+    margin-right: 25px;
+    border-style: solid;
+    border-color: gold;
+  }
+  
+  .bossTimer img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border-style: solid;
+    border-color: blue;
+    border-width: 3px;
+    display: block;
+  }
+  
+  .bossTimer button {
+    border-style: solid;
+    border-color: blue;
+    border-radius: 25%;
+    display: block;
+    margin-top: 15%;
+    width: 80px;
+    height: 30px;
+    font-size: 18px;
+  }
+  
+  .timerOverlay {
+    position: absolute;
+    top: 53%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  
+  .bossTimer img {
+    filter: grayscale(100%);
+  }
+  
+  .bossTimer img.appeared {
+    filter: none;
+  }
