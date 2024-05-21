@@ -1,76 +1,96 @@
 body {
-    background-color: black;
-    color: white;
-  }
-  
-  .globalTimer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-style: solid;
-  }
-  
-  .timerContainer {
-    display: flex;
-    flex-direction: grid;
-    border-style: solid;
-    border-color: red;
-  }
-  
-  .webTitle {
-    border-style: solid;
-  }
-  
-  .bossTimer {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-    margin-top: 25px;
-    margin-left: 25px;
-    margin-right: 25px;
-    border-style: solid;
-    border-color: gold;
-  }
-  
-  .bossTimer img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    border-style: solid;
-    border-color: blue;
-    border-width: 3px;
-    display: block;
-  }
-  
-  .bossTimer button {
-    border-style: solid;
-    border-color: blue;
-    border-radius: 25%;
-    display: block;
-    margin-top: 15%;
-    width: 80px;
-    height: 30px;
-    font-size: 18px;
-  }
-  
-  .timerOverlay {
-    position: absolute;
-    top: 53%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-  }
-  
-  .bossTimer img {
-    filter: grayscale(100%);
-  }
-  
-  .bossTimer img.appeared {
-    filter: none;
-  }
+  background-color: #1e1e1e;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+}
+
+.globalTimer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timerContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.bossTimer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+  padding: 20px;
+  background-color: #333333;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.bossTimer p {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.bossTimer img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid #007bff;
+  transition: filter 0.3s ease-in-out;
+}
+
+.bossTimer img.grayscale {
+  filter: grayscale(100%);
+}
+
+.bossTimer img.appeared {
+  filter: none;
+}
+
+input[type="number"] {
+  width: 60px; /* Ajusta el ancho según sea necesario */
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: #444444;
+  color: #ffffff;
+}
+
+label {
+  margin-right: 5px;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.timerOverlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 20px;
+}

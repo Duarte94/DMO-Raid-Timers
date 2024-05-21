@@ -1,36 +1,35 @@
-// Boss parameters
-var bosses = [];
-
+// Clase Boss para almacenar información del jefe
 class Boss {
   constructor(name, location, cooldown, photo) {
     this.name = name;
     this.location = location;
-    this.cooldown = cooldown; // cooldown in seconds
+    this.cooldown = cooldown; // cooldown en segundos
     this.photo = photo;
   }
-
-  displayInfo() {
-    console.log(`${this.name}`);
-    console.log(`${this.location}`);
-    console.log(`${this.cooldown}`);
-    console.log(`${this.photo}`);
-  }
 }
 
-// Boss creation function
-function createBoss(name, location, cooldown, photo) {
-  var newBoss = new Boss(name, location, cooldown, photo);
-  bosses.push(newBoss);
-  createTimerElement(newBoss);
+// Función para aplicar la escala de grises a la imagen
+function applyGrayscale(img) {
+  img.classList.add("grayscale");
 }
 
-// Function to start a timer
-function startTimer(duration, display, bossImg) {
-  let timer = duration, hours, minutes, seconds;
-  const interval = setInterval(function () {
-    hours = parseInt(timer / 3600, 10);
-    minutes = parseInt((timer % 3600) / 60, 10);
-    seconds = parseInt(timer % 60, 10);
+// Función para quitar la escala de grises de la imagen
+function removeGrayscale(img) {
+  img.classList.remove("grayscale");
+}
+
+// Función para iniciar un temporizador
+function startTimer(cooldown, container) {
+  var display = document.createElement("div");
+  display.className = "timerOverlay";
+
+  var img = container.querySelector("img");
+  applyGrayscale(img); // Aplicar escala de grises
+
+  var interval = setInterval(function() {
+    var hours = Math.floor(cooldown / 3600);
+    var minutes = Math.floor((cooldown % 3600) / 60);
+    var seconds = cooldown % 60;
 
     hours = hours < 10 ? "0" + hours : hours;
     minutes = minutes < 10 ? "0" + minutes : minutes;
@@ -38,38 +37,26 @@ function startTimer(duration, display, bossImg) {
 
     display.textContent = hours + ":" + minutes + ":" + seconds;
 
-    if (--timer < 0) {
+    if (--cooldown < 0) {
       clearInterval(interval);
-      display.textContent = "Appeared";
-      bossImg.classList.add("appeared");
+      display.textContent = "Alive";
+      removeGrayscale(img); // Quitar escala de grises cuando el temporizador llega a cero
+      img.classList.add("appeared");
     }
   }, 1000);
 
-  // Función para reiniciar el temporizador
-  function resetTimer() {
-    clearInterval(interval);
-    display.textContent = formatTime(duration);
-    bossImg.classList.remove("appeared"); // Remover la clase "appeared"
+  // Eliminar el display del temporizador existente y agregar el nuevo
+  var existingDisplay = container.querySelector(".timerOverlay");
+  if (existingDisplay) {
+    container.removeChild(existingDisplay);
   }
+  container.appendChild(display);
 
-  // Al hacer clic en el botón de reset, llamar a la función para reiniciar el temporizador
-  bossImg.addEventListener("click", resetTimer);
+  // Aplicar escala de grises nuevamente antes de iniciar el nuevo temporizador
+  applyGrayscale(img);
 }
 
-// Función para formatear el tiempo
-function formatTime(time) {
-  let hours = Math.floor(time / 3600);
-  let minutes = Math.floor((time % 3600) / 60);
-  let seconds = time % 60;
-
-  hours = hours < 10 ? "0" + hours : hours;
-  minutes = minutes < 10 ? "0" + minutes : minutes;
-  seconds = seconds < 10 ? "0" + seconds : seconds;
-
-  return hours + ":" + minutes + ":" + seconds;
-}
-
-// Function to create timer elements for a boss
+// Función para crear elementos de temporizador para un jefe
 function createTimerElement(boss) {
   const timerContainer = document.querySelector(".timerContainer");
 
@@ -82,35 +69,50 @@ function createTimerElement(boss) {
   var bossImg = document.createElement("img");
   bossImg.src = boss.photo;
 
-  var bossTime = document.createElement("div");
-  bossTime.className = "timerOverlay";
-  startTimer(boss.cooldown, bossTime, bossImg); 
+  var hoursLabel = createLabelElement("Hours");
+  var cooldownHoursInput = createInputElement("number", Math.floor(boss.cooldown / 3600));
+  var minutesLabel = createLabelElement("Minutes");
+  var cooldownMinutesInput = createInputElement("number", Math.floor((boss.cooldown % 3600) / 60));
 
-  var bossReset = document.createElement("button");
-  bossReset.textContent = "Reset";
-  bossReset.addEventListener("click", function() {
-    // Desactivar el botón de reset mientras el temporizador está en funcionamiento
-    bossReset.disabled = true;
-    
-    startTimer(boss.cooldown, bossTime, bossImg);
-    
-    // Habilitar el botón de reset después de un breve retraso para evitar múltiples clics
-    setTimeout(function() {
-      bossReset.disabled = false;
-    }, 1000);
-    
-    bossImg.classList.remove("appeared"); // Asegurar que al reiniciar se elimine la clase "appeared"
+  var startButton = document.createElement("button");
+  startButton.textContent = "Start";
+  startButton.addEventListener("click", function() {
+    var hours = parseInt(cooldownHoursInput.value);
+    var minutes = parseInt(cooldownMinutesInput.value);
+    var cooldown = hours * 3600 + minutes * 60 || boss.cooldown; // Usar el cooldown del jefe si no se ingresan horas o minutos
+    startTimer(cooldown, bossDiv);
+    var img = bossDiv.querySelector("img");
+    applyGrayscale(img); // Aplicar escala de grises al iniciar el temporizador
   });
 
+  // Agregar elementos al contenedor del temporizador
   bossDiv.appendChild(bossName);
   bossDiv.appendChild(bossImg);
-  bossDiv.appendChild(bossTime);
-  bossDiv.appendChild(bossReset);
+  bossDiv.appendChild(hoursLabel);
+  bossDiv.appendChild(cooldownHoursInput);
+  bossDiv.appendChild(minutesLabel);
+  bossDiv.appendChild(cooldownMinutesInput);
+  bossDiv.appendChild(startButton);
 
   timerContainer.appendChild(bossDiv);
 }
 
-// Create initial bosses
-createBoss("Examon", "Versandi Terminal", 14400, "https://i.imgur.com/kPbKfh9.png");
-createBoss("Omegamon", "Versandi Terminal", 18000, "https://i.imgur.com/UoMhUwI.png");
-createBoss("Myotismon", "Minato City", 7200, "https://i.imgur.com/knZbVKq.png");
+// Función para crear un elemento de entrada de datos
+function createInputElement(type, value) {
+  var input = document.createElement("input");
+  input.type = type;
+  input.value = value;
+  return input;
+}
+
+// Función para crear un elemento de etiqueta
+function createLabelElement(text) {
+  var label = document.createElement("label");
+  label.textContent = text;
+  return label;
+}
+
+// Crear jefes iniciales
+createTimerElement(new Boss("Examon", "Versandi Terminal", 14400, "https://i.imgur.com/kPbKfh9.png"));
+createTimerElement(new Boss("Omegamon", "Versandi Terminal", 18000, "https://i.imgur.com/UoMhUwI.png"));
+createTimerElement(new Boss("Myotismon", "Minato City", 7200, "https://i.imgur.com/knZbVKq.png"));
