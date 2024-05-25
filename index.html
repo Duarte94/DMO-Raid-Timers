@@ -1,17 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="style.css"/>
-  <title>Repaso HTML</title>
+  <base target="_top">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="globalTimer">
-    <div class="webTitle">
-      <h1>Odaiba / Versandi<br>Raid bosses timer</h1>
+  <div class="divContainer">
+    <div class="timer" id="timer1">
+      <h2>Myotismon</h2>
+      Hours: <input type="number" class="numberInput0" id="hours1" value="2" min="0"><br>
+      Minutes: <input type="number" class="numberInput" id="minutes1" value="0" min="0"><br>
+      <button onclick="startTimer(1)">Start</button>
+      <button onclick="resetTimer(1)">Reset</button>
+      <div id="display1">00:00:00</div>
     </div>
-    <div class="timerContainer">
-      <div id="digimonTimer"></div>
+    <div class="timer" id="timer2">
+      <h2>Raremon</h2>
+      Hours: <input type="number" class="numberInput0" id="hours2" value="1" min="0"><br>
+      Minutes: <input type="number" class="numberInput" id="minutes2" value="0" min="0"><br>
+      <button onclick="startTimer(2)">Start</button>
+      <button onclick="resetTimer(2)">Reset</button>
+      <div id="display2">00:00:00</div>
+    </div>
+    <div class="timer" id="timer3">
+      <h2>Kuwagamon</h2>
+      Hours: <input type="number" class="numberInput0" id="hours3" value="2" min="0"><br>
+      Minutes: <input type="number" class="numberInput" id="minutes3" value="0" min="0"><br>
+      <button onclick="startTimer(3)">Start</button>
+      <button onclick="resetTimer(3)">Reset</button>
+      <div id="display3">00:00:00</div>
     </div>
   </div>
   <script src="script.js"></script>

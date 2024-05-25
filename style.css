@@ -4,55 +4,56 @@ body {
   font-family: Arial, sans-serif;
 }
 
-.globalTimer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.timerContainer {
+.divContainer{
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
 }
 
-.bossTimer {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 20px;
-  padding: 20px;
+.timer {
   background-color: #333333;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  padding-top: 0px;
+  text-align: center;
+  width: 200px; /* Ajusta el ancho según sea necesario */
+  margin: 20px;
 }
 
-.bossTimer p {
+h2{
+  margin-top: 0px;
+  margin-bottom: 90px;
+  background-image: linear-gradient(to right, transparent, black, transparent);
+  padding-bottom: 5px;
+  background-color: rgba(0,0,0,0.1);
+}
+
+#timer1{
+  background-image: url("https://cdn.chaoscards.co.uk/uploads/prod_img/2_244901_e.png");
+  background-size:cover;
+  background-position: center;
+}
+
+#timer2{
+  background-image: url("https://cdn.chaoscards.co.uk/uploads/prod_img/2_172265_e.png");
+  background-size:cover;
+  background-position: center;
+}
+
+#timer3{
+  background-image: url("https://cdn.chaoscards.co.uk/uploads/prod_img/2_186811_e.png");
+  background-size:cover;
+  background-position: center;
+}
+
+h3 {
   margin-bottom: 10px;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.bossTimer img {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  border: 3px solid #007bff;
-  transition: filter 0.3s ease-in-out;
-}
-
-.bossTimer img.grayscale {
-  filter: grayscale(100%);
-}
-
-.bossTimer img.appeared {
-  filter: none;
 }
 
 input[type="number"] {
-  width: 60px; /* Ajusta el ancho según sea necesario */
+  width: 60px;
   padding: 8px;
   margin-bottom: 10px;
   border: 1px solid #ffffff;
@@ -62,35 +63,44 @@ input[type="number"] {
   color: #ffffff;
 }
 
-label {
-  margin-right: 5px;
-  font-size: 16px;
-  color: #ffffff;
-}
-
 button {
   padding: 10px 20px;
-  background-color: #007bff;
-  color: #ffffff;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
+  background-color: #999999;
+  color: #333333;
+  border-color: #333333;
+  border-width: 2px;
+  border-radius: 70%;
+  font-size: 18px;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
+  margin-right: 5px;
+  margin-left: 5px;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #666666;
 }
 
-.timerOverlay {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.5);
-  color: #ffffff;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 20px;
+#display1, #display2, #display3 {
+  font-size: 30px;
+  margin-top: 10px;
+  background-color: rgba(0,0,0,0.7);
+  background-image: linear-gradient(to right, transparent, red, transparent);
+  border-top-width: 2px;
+  border-top-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  border-color: red;
 }
+
+.numberInput{
+  position: relative;
+  left: 30px;
+}
+
+.numberInput0{
+  position:relative;
+  left: 37px;
+}
+
+
