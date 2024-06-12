@@ -1,7 +1,7 @@
 // script.js
 
 // URL del backend en Vercel
-const backendURL = 'https://dmott.vercel.app/';
+const backendURL = 'https://dmott-r92d3lab2-devas-projects-20feeb98.vercel.app';
 
 // Array para almacenar los intervalos de los temporizadores
 let timers = [null, null, null];
