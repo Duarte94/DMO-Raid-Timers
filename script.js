@@ -1,7 +1,5 @@
-// script.js
-
 // URL del backend en Vercel
-const backendURL = 'https://dmott-cbo0uxprd-devas-projects-20feeb98.vercel.app/';
+const backendURL = 'https://dmott-cbo0uxprd-devas-projects-20feeb98.vercel.app';
 
 // Array para almacenar los intervalos de los temporizadores
 let timers = [null, null, null];
@@ -22,7 +20,7 @@ async function startTimer(index) {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ duration: duration })
+      body: JSON.stringify({ index: index, duration: duration })
     });
 
     if (!response.ok) {
@@ -34,7 +32,7 @@ async function startTimer(index) {
     console.log('Timer started:', data);
 
     // Guardar el tiempo de finalización del temporizador
-    const endTime = Date.now() + duration;
+    const endTime = data.endTime;
 
     // Si ya hay un temporizador activo, detenerlo
     if (timers[index - 1]) {
@@ -75,7 +73,8 @@ async function resetTimer(index) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
-      }
+      },
+      body: JSON.stringify({ index: index })
     });
 
     if (!response.ok) {
