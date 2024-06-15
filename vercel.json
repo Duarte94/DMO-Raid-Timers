@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "routes": [
+    { "handle": "filesystem" },
+    {
+      "src": "/start-timer",
+      "dest": "backend/start-timer.js"
+    },
+    {
+      "src": "/stop-timer",
+      "dest": "backend/stop-timer.js"
+    }
+  ],
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/" }
+  ],
+  "builds": [
+    { "src": "backend/*.js", "use": "@vercel/node" }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
+}
