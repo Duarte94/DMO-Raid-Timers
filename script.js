@@ -1,53 +1,37 @@
-const backendURL = 'https://dmott-cbo0uxprd-devas-projects-20feeb98.vercel.app';
+var timers = [null, null, null];
 
-async function startTimer(index) {
-  let hours = parseInt(document.getElementById('hours' + index).value);
-  let minutes = parseInt(document.getElementById('minutes' + index).value);
-  let duration = (hours * 60 * 60 + minutes * 60) * 1000;
+function startTimer(index) {
+  var hours = parseInt(document.getElementById('hours' + index).value);
+  var minutes = parseInt(document.getElementById('minutes' + index).value);
+  var duration = (hours * 60 * 60 + minutes * 60) * 1000;
+  var endTime = new Date().getTime() + duration;
 
-  try {
-    const response = await fetch(`${backendURL}/start-timer`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ index, duration })
-    });
+  if (timers[index - 1]) {
+    clearInterval(timers[index - 1]);
+  }
 
-    if (!response.ok) {
-      throw new Error('Failed to start timer');
+  timers[index - 1] = setInterval(function() {
+    var now = new Date().getTime();
+    var distance = endTime - now;
+
+    if (distance < 0) {
+      clearInterval(timers[index - 1]);
+      document.getElementById('display' + index).innerText = "00:00:00";
+      return;
     }
 
-    const data = await response.json();
-    console.log('Timer started:', data);
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    const endTime = data.endTime;
-
-    // Resto del código para manejar el temporizador...
-  } catch (error) {
-    console.error('Error starting timer:', error);
-  }
+    document.getElementById('display' + index).innerText = 
+      (hours < 10 ? "0" : "") + hours + ":" + 
+      (minutes < 10 ? "0" : "") + minutes + ":" + 
+      (seconds < 10 ? "0" : "") + seconds;
+  }, 1000);
 }
 
-async function resetTimer(index) {
-  try {
-    const response = await fetch(`${backendURL}/stop-timer`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ index })
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to stop timer');
-    }
-
-    const data = await response.json();
-    console.log('Timer stopped:', data);
-
-    // Resto del código para detener el temporizador...
-  } catch (error) {
-    console.error('Error stopping timer:', error);
-  }
+function resetTimer(index) {
+  clearInterval(timers[index - 1]);
+  document.getElementById('display' + index).innerText = "00:00:00";
 }
