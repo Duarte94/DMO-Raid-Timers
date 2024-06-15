@@ -1,4 +1,4 @@
-var timers = [null, null, null];
+var timers = [null];
 
 function startTimer(index) {
   var hours = parseInt(document.getElementById('hours' + index).value);
@@ -17,6 +17,10 @@ function startTimer(index) {
     if (distance < 0) {
       clearInterval(timers[index - 1]);
       document.getElementById('display' + index).innerText = "00:00:00";
+
+      // Reproducir alarma
+      playAlarm();
+      
       return;
     }
 
@@ -34,4 +38,14 @@ function startTimer(index) {
 function resetTimer(index) {
   clearInterval(timers[index - 1]);
   document.getElementById('display' + index).innerText = "00:00:00";
+  
+  // Para pausar la alarma si está sonando
+  var alarmSound = document.getElementById('alarm');
+  alarmSound.pause();
+  alarmSound.currentTime = 0;
+}
+
+function playAlarm() {
+  var alarmSound = new Audio('digivicesound.mp3');
+  alarmSound.play();
 }
